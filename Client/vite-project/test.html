@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Formatter</title>
+    <style>
+        #emailContent {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-family: Arial, sans-serif;
+        }
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="emailContent">
+    <p>Dear <strong>John Doe</strong>,</p>
+    <p>This email addresses the database connection error you reported, specifically:</p>
+    <p><em>An error has occurred while accessing the database: Invalid connection string attribute or unable to connect to database</em> while accessing your Digita programs.</p>
+    <p>This issue typically arises when the SQL Server service responsible for database communication isn't running.</p>
+    <p>The most effective initial solution is to reboot the machine hosting the SQL Server database software.</p>
+    <p>Please attempt this restart and confirm if the issue is resolved. If the problem persists after the reboot, please reply to this email so we can further investigate and assist you.</p>
+    <p>Sincerely,<br><strong>Support Team</strong></p>
+</div>
+
+<button onclick="selectAndCopy()">Select and Copy</button>
+
+<script>
+    function selectAndCopy() {
+        const emailContent = document.getElementById('emailContent');
+        const range = document.createRange();
+        range.selectNodeContents(emailContent);
+
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        try {
+            navigator.clipboard.writeText(selection.toString()).then(() => {
+                alert('Email content copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        } catch (err) {
+            console.error('Copy command failed:', err);
+        }
+    }
+</script>
+
+</body>
+</html>
